@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kotlinVersion = '1.2.71'
+        kotlinVersion = '1.3.11'
         springBootVersion = '2.1.1.RELEASE'
     }
     repositories {
@@ -27,27 +27,26 @@ repositories {
     maven { url 'https://repo.spring.io/milestone' }
 }
 
-ext {
-    set('springCloudVersion', 'Greenwich.RC2')
-}
-
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
-    implementation 'org.springframework.cloud:spring-cloud-gcp-starter-pubsub'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation "org.jetbrains.kotlin:kotlin-reflect"
-    def springCloudGcpVersion = '1.0.0.RC1'
+
+    def springCloudGcpVersion = '1.1.0.RC2'
+//    def springCloudGcpVersion = '1.0.0.RC1'
     compile("org.springframework.cloud:spring-cloud-gcp-starter-pubsub:$springCloudGcpVersion")
-    def springIntegrationVersion = '5.1.0.RELEASE'
-    compile("org.springframework.integration:spring-integration-core:$springIntegrationVersion")
+    compile("org.springframework.cloud:spring-cloud-gcp-starter-logging:$springCloudGcpVersion")
+    compile("org.springframework.cloud:spring-cloud-gcp-starter-trace:$springCloudGcpVersion")
+
+    compile("org.springframework.integration:spring-integration-core:5.1.1.RELEASE")
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'io.projectreactor:reactor-test'
 }
 
 dependencyManagement {
     imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Greenwich.RC2"
     }
 }
 
